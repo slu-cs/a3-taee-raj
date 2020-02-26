@@ -1,4 +1,7 @@
 # A3
 CS332 Assignment #3
 
-Citations::/
+Citations:
+hello this is a line
+
+:/
