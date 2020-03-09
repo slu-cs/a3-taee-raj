@@ -2,6 +2,5 @@
 CS332 Assignment #3
 
 Citations:
-hello this is a line
-
-:/
+https://www.w3schools.com/jsref/prop_checkbox_checked.asp
+https://getbootstrap.com/docs/4.0/getting-started/introduction/

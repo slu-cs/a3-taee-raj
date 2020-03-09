@@ -1,32 +1,112 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
-    <meta charset="utf-8">
-    <title>Vote Page</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+      <meta charset="utf-8">
+      <title>Poll Page</title>
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   </head>
+
   <body>
-    <form>
+    <form id='createfrm'>
       <div class="container-fluid">
         <h4>Create Poll</h4>
         <ul style='list-style-type:none' id='poll_list'>
           <label>Title</label>
-          <li><input type="text" name="answer" placeholder="Enter the name of your poll"></li>
+          <li><textarea type="text" name="answer" id='title' placeholder="Enter the name of your poll"></textarea></li>
           <label>Options</label>
-          <li><input type="text" name="option"></li>
-          <li><input type="text" name="option"></li>
+          <!-- <li><input type="text"><input type="checkbox" name="checkbox" class='d-none'></li>
+          <li><input type="text"><input type="checkbox" name="checkbox" class='d-none'></li> -->
         </ul>
         <div class="container-fluid">
-          <button type="button" id='option' align='left' name="button">Add Option</button>
-          <button type="submit" align='right' name="button">Create Poll</button>
+          <button type="button" id='option_' align='left' name="button">Add Option</button>
+          <button type="submit" id='create_' align='right' name="button">Create Poll</button>
+          <button type="button" id='done_' class='d-none' name="button">Vote</button>
+          <button type="button" id='finish_' name="button" class='d-none'>Finish poll</button>
         </div>
+      </div>
+
+      <div>
+        <table id='tally'>
+          <tr>
+            <td>Options</td>
+            <td>votes</td>
+          </tr>
+        </table>
       </div>
     </form>
   </body>
 
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
   <script>
 
+    const list = [];
+    const counter = [];
+
+    $('form').on('submit', function(event) {
+      const form = $(this);
+      event.preventDefault();
+      console.log('Clicked create');
+      // if ($('#title').is(':empty')){
+      //   alert('Enter the title of poll.');
+      // }
+
+      const options = form.find('.option');
+      for (let option of options) {
+        option = $(option).val(); // Turn into a JQuery object
+        list.push(option);
+        counter.push(0);
+        // option.submit(); // Empty out the box
+      }
+
+      console.log(list);
+      console.log(counter);
+
+      $('#option_').css('display', 'none');
+      $('#create_').css('display', 'none');
+      document.getElementById('done_').setAttribute('class', 'd-block');
+      document.getElementById('finish_').setAttribute('class', 'd-block');
+      document.getElementById('title').readOnly = true;
+      $('.check').attr("disabled", false);
+
+      $('#done_').on('click', function(event){
+        event.preventDefault();
+
+        const check = form.find('.check');
+        var i;
+        for (i = 0; i < check.length;i++){
+          if(check[i].checked){
+            counter[i]+=1;
+          }
+        }
+        console.log(counter);
+      });
+
+      $('#finish_').on('click', function(event){
+        event.preventDefault();
+
+        var i;
+        for (i = 0; i < list.length; i++){
+          const tr = $(`<tr><td>${list[i]}</td><td>${counter[i]}</td></tr>`)
+          $('#tally').append(tr);
+        }
+      });
+
+
+    });
+
+    $('#option_').on('click', function(event) {
+      event.preventDefault();
+
+      const li = $(`<li><input type="text" class="option"><input type="checkbox" class="check" id="vote_" disabled></li>`); // New list item
+      $('#poll_list').append(li);
+      console.log('Clicked image');
+    });
+
+
+
+
+
+
+
+
   </script>
-
-
-</html>
