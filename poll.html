@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
@@ -7,77 +8,48 @@
   </head>
 
   <body>
-    <form>
-      <div class="container-fluid">
+    <form class="questionaccept">
+      <div class="form-group">
         <h4>Create Poll</h4>
-        <ul style='list-style-type:none' id='poll_list'>
-          <label>Title</label>
-          <li><input type="text" name="answer" placeholder="Enter the name of your poll"></li>
-          <label>Options</label>
-          <li><input type="text" name="option"></li>
-          <li><input type="text" name="option"></li>
-        </ul>
-        <div class="container-fluid">
-          <button type="button" id='option' align='left' name="button">Add Option</button>
-          <button type="submit" align='right' name="button">Create Poll</button>
-
-        </div>
+        <!--<ul style='list-style-type:none' id='poll_list'>-->
+          <label>Poll Question</label>
+          <input type="text" name="text" id="question">
+          <!--<button type="submit" id="adder"> Add Option</button>-->
+        <!--</ul>-->
       </div>
+
     </form>
-
-    <div class="container-fluid">
-      <h4>Active Polls</h4>
-
-    </div>
-
+    <form class="answersaccept">
+      <label>Options</label>
+      <input type="text" name="text" id="answers">
+      <button type="submit" name="button" id="adder"> Add Option</button>
+      <li id="listofops"></li>
+    </form>
+      <button type="submit" name="button" id="pollmaker"> Create Poll</button>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script>
-
-      $('form').on('submit', function(event) {
+      //take the question and store it
+      $('#questionaccept').on('submit', function(event) {
         const form = $(this);
         event.preventDefault();
-        console.log('Form data: ', form.serialize());
+        const answer = $('#pollmaker');
+        const item = answer.val();
+        answer.val('');
+        //Take the answers and store them
+        //if('ul').on('click','button',function(event)
+        //{
+          //$(this).closest('li').remove();
       });
-
-      $('#option').on('click', function(event) {
-        console.log('Clicked image', id);
-      });
-
-
-    </script>
-
-
-
-<!--  left the part-->
-
-    <form>
-      <!--<p> Enter an Question:  </p> -->
-      <!--//<input type="text" id=asked> -->
-      <li id ='listofanswer'> poop</li>
-      <p> Enter an answer: </p>
-      <input type="text" id=answer>
-      <button type="submit">Add Answer</button>
-
-    </form>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-    <script>
-
-    //Keep the question
-    //const quest = $('asked');
-    //const qestion = quest.val();
-    //quest.val('');
-      // Add to the to-do list
-      $('form').on('submit', function(event) {
-        event.preventDefault();
-
+      //Take the answers and store them
+      $('#answersaccept').on('submit',function(event) {
         // Grab the text and empty the box
-        const input = $('#answer');
-        const item = input.val();
+        const input = $('answers');
+        const temp = input.val();
         input.val('');
 
         // Add a non-empty item to the list
         if (item) {
-          $('#listofanswer').remove();
+          $('#listofops').remove();
           $('ul').append($(`
             <li>
              <span>${item}</span>
@@ -85,17 +57,17 @@
             </li>
           `));
         }
-      });
-      // Delete from the to-do list
-      $('ul').on('click', 'button', function(event) {
-        $(this).closest('li').remove();
+    });
+        //const form = $(this);
 
-        // Put back the placeholder if it's empty
-        const items = $('li');
-        if (items.length == 0) {
-          $('ul').append($('<li id="listofanswer">poop</li>'));
-        }
-      });
+        //console.log('Form data: ', form.serialize());
+
+
+      //$('#option').on('click', function(event) {
+        //console.log('Clicked image', id);
+      //});
+
+
     </script>
   </body>
 </html>
