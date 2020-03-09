@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+      <meta charset="utf-8">
+      <title>Poll Page</title>
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  </head>
+
+  <body>
+    <form id='createfrm'>
+      <div class="container-fluid">
+        <h4>Create Poll</h4>
+        <ul style='list-style-type:none' id='poll_list'>
+          <label>Title</label>
+          <li><input type="text" name="answer" id='title' placeholder="Enter the name of your poll"></li>
+          <label>Options</label>
+          <li><input type="text" name="option"></li>
+          <li><input type="text" name="option"></li>
+        </ul>
+        <div class="container-fluid">
+          <button type="button" id='option_' align='left' name="button">Add Option</button>
+          <button type="submit" align='right' id='create' name="button">Create Poll</button>
+
+        </div>
+      </div>
+    </form>
+  </body>
+
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+  <script>
+
+    const list = [];
+    
+    $('form').on('submit', function(event) {
+      const form = $(this);
+      event.preventDefault();
+      console.log('Clicked create');
+      // if ($('#title').is(':empty')){
+      //   alert('Enter the title of poll.');
+      // }
+
+      const options = form.find('input');
+      for (let option of options) {
+        option = $(option); // Turn into a JQuery object
+        list.push(option);
+        // option.submit(); // Empty out the box
+      }
+
+      console.log(list);
+      location.href='vote.html';
+
+    });
+
+    $('#option_').on('click', function(event) {
+      const li = $(`<li><input type="text" name="option"></li>`); // New list item
+      $('#poll_list').append(li);
+      console.log('Clicked image');
+    });
+
+
+
+
+  </script>
