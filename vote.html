@@ -14,8 +14,6 @@
           <label>Title</label>
           <li><textarea type="text" name="answer" id='title' placeholder="Enter the name of your poll"></textarea></li>
           <label>Options</label>
-          <!-- <li><input type="text"><input type="checkbox" name="checkbox" class='d-none'></li>
-          <li><input type="text"><input type="checkbox" name="checkbox" class='d-none'></li> -->
         </ul>
         <div class="container-fluid">
           <button type="button" id='option_' align='left' name="button">Add Option</button>
@@ -25,8 +23,11 @@
         </div>
       </div>
 
-      <div>
-        <table id='tally'>
+      <div id='result'>
+        <table id='tally' class='d-none'>
+          <tr>
+            <th>Result</th>
+          </tr>
           <tr>
             <td>Options</td>
             <td>votes</td>
@@ -45,29 +46,27 @@
     $('form').on('submit', function(event) {
       const form = $(this);
       event.preventDefault();
-      console.log('Clicked create');
-      // if ($('#title').is(':empty')){
-      //   alert('Enter the title of poll.');
-      // }
 
+      //store option in the array
       const options = form.find('.option');
       for (let option of options) {
         option = $(option).val(); // Turn into a JQuery object
         list.push(option);
         counter.push(0);
-        // option.submit(); // Empty out the box
+
       }
 
-      console.log(list);
-      console.log(counter);
 
+      // css works
       $('#option_').css('display', 'none');
       $('#create_').css('display', 'none');
       document.getElementById('done_').setAttribute('class', 'd-block');
       document.getElementById('finish_').setAttribute('class', 'd-block');
       document.getElementById('title').readOnly = true;
+      $('.option').readOnly = true;
       $('.check').attr("disabled", false);
 
+      // vote button
       $('#done_').on('click', function(event){
         event.preventDefault();
 
@@ -78,22 +77,32 @@
             counter[i]+=1;
           }
         }
-        console.log(counter);
+
+        $('.check').prop('checked', false);
       });
 
+      // finishing poll
       $('#finish_').on('click', function(event){
         event.preventDefault();
+
+        document.getElementById('tally').setAttribute('class', 'd-block');
 
         var i;
         for (i = 0; i < list.length; i++){
           const tr = $(`<tr><td>${list[i]}</td><td>${counter[i]}</td></tr>`)
           $('#tally').append(tr);
         }
+
+        document.getElementById('finish_').setAttribute('class', 'd-none');
+        document.getElementById('done_').setAttribute('class', 'd-none');
+
       });
+
 
 
     });
 
+    // add option
     $('#option_').on('click', function(event) {
       event.preventDefault();
 
